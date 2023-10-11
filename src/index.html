@@ -349,7 +349,7 @@
       let room = prompt('Please enter room');
       if (!room) room = '0';
       const socket = io();
-      socket.emit('join-room', room, username);
+      socket.emit('join-room', room);
       var Message;
       Message = function (arg) {
         (this.text = arg.text), (this.message_side = arg.message_side);
@@ -435,6 +435,10 @@
 
         socket.on('set-room', room => {
           setChatRoom(room);
+        });
+
+        socket.on('set-name', name => {
+          setUser(name);
         });
       });
     }).call(this);

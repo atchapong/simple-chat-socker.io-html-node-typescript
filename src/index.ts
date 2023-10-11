@@ -19,10 +19,12 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket: CustomSocket) => {
+  console.log('a user connect');
   socket.on('join-room', async (room: string) => {
     await leaveRoom(socket);
     void socket.join(room);
     socket.emit('set-room', room);
+    socket.emit('set-name');
     await broadcastInRoom(socket, room, socket.id);
   });
 
@@ -33,6 +35,11 @@ io.on('connection', (socket: CustomSocket) => {
 
   socket.on('disconnect', async () => {
     console.log('A user disconnected');
+    const room: Array<string> = [];
+    for (const data of socket.rooms) {
+      room.push(data);
+    }
+    await broadcastInRoom(socket, room[0], socket.id);
   });
 });
 
