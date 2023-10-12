@@ -35,11 +35,11 @@ io.on('connection', (socket: CustomSocket) => {
 
   socket.on('disconnect', async () => {
     console.log('A user disconnected');
-    const room: Array<string> = [];
-    for (const data of socket.rooms) {
-      room.push(data);
-    }
-    await broadcastInRoom(socket, room[0], socket.id);
+    // const room: Array<string> = [];
+    // for (const data of socket.rooms) {
+    //   room.push(data);
+    // }
+    // await broadcastInRoom(socket, room[0], socket.id);
   });
 });
 

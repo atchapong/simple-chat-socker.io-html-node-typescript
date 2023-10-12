@@ -15,7 +15,7 @@
     "dev": "tsnd --respawn ./src/index.ts",
     "start": "tsc && node ./build/src/index.js",
     "build": "NODE_OPTIONS='--max-old-space-size=8192' yarn tsc",
-    "start:prod": "yarn tsc && node --max_old_space_size=8192 ./build/index.js"
+    "start:prod": "yarn build && node ./build/src/index.js"
   },
   "author": "",
   "license": "ISC",
