@@ -1,6 +1,7 @@
 import {configDotenv} from 'dotenv';
 import * as express from 'express';
 import {createServer} from 'http';
+import path = require('path');
 import {Server, Socket} from 'socket.io';
 
 // Create a custom interface that extends Socket
@@ -14,9 +15,19 @@ const server = createServer(app);
 const io = new Server(server);
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.sendFile('index.html', {root: __dirname});
-});
+// app.get('/', (req, res) => {
+//   res.sendFile('index.html', {root: __dirname});
+// });
+if (process.env.SITE === 'prod') {
+  app.use('/', express.static(path.join(__dirname)));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.sendFile('index.html', {root: __dirname});
+  });
+}
 
 io.on('connection', (socket: CustomSocket) => {
   console.log('a user connect');
