@@ -1,6 +1,6 @@
 import {configDotenv} from 'dotenv';
 import * as express from 'express';
-import {createServer} from 'node:http';
+import {createServer} from 'http';
 import {Server, Socket} from 'socket.io';
 
 // Create a custom interface that extends Socket
